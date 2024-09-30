@@ -1,0 +1,40 @@
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">Your Cart</h2>
+
+        <div class="mt-8 grid grid-cols-1 gap-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <% let subtotal = 0; %>
+            <% cartItems.forEach(item => { %>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <img src="/uploads/<%= item.image_url %>" alt="<%= item.name %>" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 truncate"><%= item.name %></h3>
+                        <p class="mt-2 text-gray-600 text-sm">Price: $<%= item.price.toFixed(2) %></p>
+                        <p class="mt-1 text-gray-600 text-sm">Quantity: <%= item.quantity %></p>
+                    </div>
+                    <div class="flex justify-between items-center px-4 py-2 border-t">
+                        <form action="/remove-from-cart" method="POST" class="flex">
+                            <input type="hidden" name="userId" value="<%= userId %>">
+                            <input type="hidden" name="productId" value="<%= item.product_id %>">
+                            <button type="submit" class="text-red-500 hover:text-red-600 text-sm">Remove</button>
+                        </form>
+                        <p class="text-lg font-bold text-gray-800">$<%= (item.price * item.quantity).toFixed(2) %></p>
+                    </div>
+                </div>
+                <% subtotal += item.price * item.quantity; %>
+            <% }); %>
+        </div>
+
+        <!-- Subtotal and Checkout -->
+        <div class="mt-10 bg-white p-6 shadow-md rounded-lg">
+            <h3 class="text-2xl font-bold text-gray-900">Subtotal: $<%= subtotal.toFixed(2) %></h3>
+            <form action="/checkout" method="POST" class="mt-6">
+                <input type="hidden" name="userId" value="<%= userId %>">
+                <input type="hidden" name="subtotal" value="<%= subtotal.toFixed(2) %>">
+                <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition ease-in-out duration-300">
+                    Proceed to Checkout
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

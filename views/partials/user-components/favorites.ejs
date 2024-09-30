@@ -1,0 +1,55 @@
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h2 class="text-4xl font-bold tracking-tight text-gray-900 mb-8">Your Favorite Products</h2>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8">
+            <% favoriteItems.forEach(item => { %>
+            <div class="relative bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+                <a href="#" class="group block">
+                    <div class="relative w-full h-56 bg-gray-200">
+                        <img src="/uploads/<%= item.image_url %>" alt="<%= item.name %>" class="w-full h-full object-cover object-center rounded-t-lg transition-transform duration-300 group-hover:scale-105">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-gray-900 truncate"><%= item.name %></h3>
+                        <p class="mt-2 text-xl font-medium text-blue-600">$<%= item.price.toFixed(2) %></p>
+                    </div>
+                </a>
+                <div class="flex justify-between items-center p-4 bg-gray-50">
+                    <button class="text-blue-600 hover:text-blue-800 font-semibold text-sm focus:outline-none">
+                        <i class="fas fa-heart mr-1"></i> Remove Favorite
+                    </button>
+                    <button onclick="addToCart('<%= item.id %>')" class="bg-blue-600 hover:bg-blue-800 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors">
+                        <i class="fas fa-cart-plus mr-1"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<script>
+   function addToCart(productId) {
+    fetch('/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId: productId, quantity: 1 })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Item added to cart');
+        } else {
+            alert('Error adding item to cart');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding item to cart');
+    });
+}
+
+
+</script>
