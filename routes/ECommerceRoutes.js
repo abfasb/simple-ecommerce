@@ -28,6 +28,7 @@ router.get('/order-success', isAuthenticated, EController.getSuccess);
 
 
 router.get('/user/cart/', isAuthenticated, EController.getCartUser);
+router.get('/user/view-product/:id', isAuthenticated, EController.getProductView);
 router.get('/user/get-order/:id', isAuthenticated, EController.getOrderUser);
 router.get('/user/history/order', isAuthenticated, EController.checkHistoryUser);
 

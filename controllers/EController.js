@@ -32,10 +32,10 @@ const getOrders = async () => {
                 orders.created_at DESC;`;
 
         const [rows] = await db.execute(query);
-        return rows; // Return the fetched rows (orders)
+        return rows;
     } catch (error) {
         console.error('Error fetching orders:', error);
-        throw error; // Rethrow error to handle it in the controller
+        throw error;
     }
 };
 
@@ -51,7 +51,7 @@ const EController = {
         const { email, password } = req.body;
         const user = users.find(u => u.email === email && u.password === password);
         if (user) {
-            req.session.user = user; // Set session
+            req.session.user = user;
             res.redirect('/');
         } else {
             res.status(401).render('sign-in', { error: 'Invalid credentials' });
@@ -67,10 +67,9 @@ const EController = {
                 return res.status(500).send('Database error');
             }
     
-            // Assuming your home page needs to display the products
             res.render('pages/users/home', {
                 products: results,
-                userId: userId // Pass products to the home EJS view
+                userId: userId 
             });
         });
     },
@@ -116,7 +115,7 @@ const EController = {
     
             res.render('pages/users/cart', {
                 cartItems: results,
-                userId: userId // Pass the cart items to the EJS view
+                userId: userId
             });
         });
     },
@@ -178,9 +177,7 @@ const EController = {
     },
 
     addOrderAdmin: (req, res) => {
-        // Admin view orders logic
         res.render('pages/admin/admin-add-product'
-           // , { orders: [] }
         );
     },
 
@@ -209,6 +206,27 @@ const EController = {
             });
         });
         
+    },
+    getProductView: (req, res) => {
+        const productId = req.params.id;
+        const userId = req.session.userId;
+    
+        const query = 'SELECT * FROM products WHERE id = ?';
+    
+        db.query(query, [productId], (error, results) => {
+            if (error) {
+                console.error('Error fetching product:', error);
+                return res.status(500).render('error', { message: 'Server error' });
+            }
+    
+            if (results.length === 0) {
+                return res.status(404).render('error', { message: 'Product not found' });
+            }
+    
+            const product = results[0];
+    
+            return res.render('pages/users/view-product', { product, userId: userId });
+        });
     }
 };
 
