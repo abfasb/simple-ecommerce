@@ -157,8 +157,8 @@ exports.removeFromCart = (req, res) => {
     const productId = req.body.productId;
 
     const query = `
-        DELETE FROM cart 
-        WHERE user_id = ? AND product_id = ?`;
+        DELETE FROM cart_items 
+        WHERE cart_id = (SELECT id FROM cart WHERE user_id = ?) AND product_id = ?`;
 
     db.query(query, [userId, productId], (err, results) => {
         if (err) {
@@ -166,9 +166,10 @@ exports.removeFromCart = (req, res) => {
             return res.status(500).send('Database error while removing item from cart');
         }
 
-        res.redirect('/cart'); 
+        res.redirect('/user/cart'); 
     });
 }
+
 
 exports.saveOrder = (req, res) => {
     
