@@ -1,81 +1,14 @@
-This is an eCommerce application designed for Sioti Sportswear, allowing users to browse, add products to their cart, manage their orders, and much more. The application is built using Express.js and incorporates authentication and role-based access control for users and admins.
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Middleware](#middleware)
-- [Contributing](#contributing)
-- [License](#license)
+This is an eCommerce application, allowing users to browse, add products to their cart, manage their orders, and much more. The application is built using Express.js and incorporates authentication and role-based access control for users and admins.
 
 ## Features
 
-- User Registration and Authentication
-- Admin Dashboard for product management
-- Add products to cart and favorites
-- Checkout process
-- Order history tracking
-- View product details
-- User and Admin routes for easy management
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-Navigate to the project directory:
-bash
-Copy code
-cd your-repo-name
-Install the dependencies:
-bash
-Copy code
-npm install
-Set up your environment variables in a .env file.
-Usage
-Start the server:
-bash
-Copy code
-npm start
-Open your browser and navigate to http://localhost:3000 to view the application.
-API Endpoints
-User Routes
-POST /register: Register a new user
-POST /signIn: Log in an existing user
-POST /add-to-cart: Add a product to the user's cart (requires authentication)
-POST /add-to-favorite: Add a product to the user's favorites
-POST /remove-from-cart: Remove a product from the cart
-POST /checkout: Save the user's order (requires authentication)
-GET /user/cart/: View the user's cart (requires authentication)
-GET /user/view-product/:id: View product details (requires authentication)
-GET /user/get-order/:id: View specific order details (requires authentication)
-GET /user/history/order: View order history (requires authentication)
-Admin Routes
-POST /admin-add-product: Add a new product (requires admin authentication)
-GET /admin-panel: View the admin panel (requires admin authentication)
-GET /admin-panel/add-product: Admin panel to add products (requires admin authentication)
-PATCH /admin/orders/update: Update order status (requires admin authentication)
-General Routes
-GET /: View home page (requires authentication)
-GET /about: View about page
-GET /contact-us: View contact page
-GET /sign-up: View sign-up page
-GET /sign-in: View sign-in page
-GET /meet-the-team: View team page
-GET /favorites: View user's favorite products (requires authentication)
-GET /order-success: View order success page (requires authentication)
-Middleware
-isAuthenticated: Middleware to check if the user is authenticated.
-isAdmin: Middleware to check if the user is an admin.
-Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-vbnet
-Copy code
-
-Just update the placeholders `yourusername` and `your-repo-name` with your actual Gi
+1. **User Registration and Authentication**: Users can sign up and log in to access personalized features.
+2. **Admin Dashboard for Product Management**: Admins can manage products, including adding and updating them.
+3. **Add Products to Cart**: Users can add products to their shopping cart for later purchase.
+4. **Add Products to Favorites**: Users can mark products as favorites for quick access later.
+5. **Checkout Process**: Securely save and process user orders during checkout.
+6. **Order History Tracking**: Users can view their past orders and order details.
+7. **View Product Details**: Users can view detailed information about each product.
+8. **User-Specific Cart Management**: Users can view, modify, and remove items from their cart.
+9. **Admin Order Management**: Admins can update the status of orders and manage user transactions.
+10. **Role-Based Access Control**: Different routes and features are available based on user roles (admin vs. user).
